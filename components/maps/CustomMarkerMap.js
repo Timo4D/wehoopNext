@@ -14,28 +14,38 @@ export function ChangeView({ coords }) {
     return null;
 }
 
-function LocationMarker() {
-    const initialMarkers = new LatLng(51.505, -0.09);
-    const [marker, setMarker] = useState(initialMarkers);
-  
-    useMapEvents({
-      click(e) {
-        setMarker(e.latlng);
-      }
-    });
-  
-    return (
-      <React.Fragment>
-        <Marker position={marker} ></Marker>
-      </React.Fragment>
-    );
-  }
-  
+
 
 export default function Map(props) {
     const [geoData, setGeoData] = useState({ lat: props.lat, lng: props.lng });
 
     const center = [geoData.lat, geoData.lng];
+    
+    function LocationMarker() {
+      const initialMarkers = new LatLng(51.505, -0.09);
+      const [marker, setMarker] = useState(initialMarkers);
+
+      const map = useMap();
+
+        useEffect(() => {
+            map.locate().on("locationfound", function (e) {
+              setMarker(e.latlng);
+                map.flyTo(e.latlng, map.getZoom());
+            });
+        }, [map]);
+  
+      useMapEvents({
+          click(e) {
+              setMarker(e.latlng);
+          },
+      });
+  
+      return (
+          <React.Fragment>
+              <Marker position={marker}></Marker>
+          </React.Fragment>
+      );
+  }
 
     useEffect(() => {
         (async function init() {
@@ -50,12 +60,12 @@ export default function Map(props) {
     }, []);
 
     return (
-        <MapContainer center={center} zoom={5} style={{ height: props.size }}>
+        <MapContainer center={center} zoom={13} style={{ height: props.size }}>
             <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-
+            {/* <InitialPosisiton /> */}
             <LocationMarker />
         </MapContainer>
     );

@@ -13,7 +13,7 @@ const MyNavbar = () => {
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/courts">Courts</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link href="/map">Map</Nav.Link>
           </Nav>
           <Nav>
             {!session && <Nav.Link onClick={signIn}>Log In</Nav.Link>}
