@@ -14,7 +14,7 @@ const CourtCard = () => {
           Some quick example text to build on the card title and make up the
           bulk of the cards content.
         </Card.Text>
-        <Button variant="primary">More</Button>
+        <Button variant="primary" href="/courts/1">More</Button>
       </Card.Body>
     </Card>
   );
