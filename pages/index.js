@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import Button from "react-bootstrap/Button";
 import { useSession, signIn, signOut } from "next-auth/react";
 import CourtList from "../components/CourtList";
 import logo from "../public/logo.png"

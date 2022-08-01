@@ -14,38 +14,37 @@ export function ChangeView({ coords }) {
     return null;
 }
 
-
-
 export default function Map(props) {
     const [geoData, setGeoData] = useState({ lat: props.lat, lng: props.lng });
 
     const center = [geoData.lat, geoData.lng];
-    
-    function LocationMarker() {
-      const initialMarkers = new LatLng(51.505, -0.09);
-      const [marker, setMarker] = useState(initialMarkers);
 
-      const map = useMap();
+    function LocationMarker() {
+        const initialMarkers = new LatLng(51.505, -0.09);
+        const [marker, setMarker] = useState(initialMarkers);
+
+        const map = useMap();
 
         useEffect(() => {
             map.locate().on("locationfound", function (e) {
-              setMarker(e.latlng);
+                setMarker(e.latlng);
                 map.flyTo(e.latlng, map.getZoom());
             });
         }, [map]);
-  
-      useMapEvents({
-          click(e) {
-              setMarker(e.latlng);
-          },
-      });
-  
-      return (
-          <React.Fragment>
-              <Marker position={marker}></Marker>
-          </React.Fragment>
-      );
-  }
+
+        useMapEvents({
+            click(e) {
+                setMarker(e.latlng);
+                props.sendData(e.latlng)
+            },
+        });
+
+        return (
+            <React.Fragment>
+                <Marker position={marker}></Marker>
+            </React.Fragment>
+        );
+    }
 
     useEffect(() => {
         (async function init() {
