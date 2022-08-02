@@ -61,6 +61,6 @@ model Court {
   description String?
   image String? 
   rating Int?
-  latitude Decimal
-  longitude Decimal
+  latitude Float
+  longitude Float
 }

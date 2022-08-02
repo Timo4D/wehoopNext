@@ -7,42 +7,31 @@ import { Col, Row } from "react-bootstrap";
 
 import React, { useState } from "react";
 
+import { PrismaClient, Prisma } from "@prisma/client";
+
 const MapWithNoSSR = dynamic(() => import("../../components/maps/Map"), {
     ssr: false,
 });
 
-const Courts = () => {
+const Courts = ({ res }) => {
     const router = useRouter();
     const { id } = router.query;
-
     return (
         <>
             <Container fluid className={styles.main}>
-                <h1 className={styles.title}>CourtName</h1>
+                <h1 className={styles.title}>{res.name}</h1>
 
                 <Container>
                     <CourtCarousel />
                     <h2>Beschreibung:</h2>
-                    <p className={styles.description}>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et
-                        dolore magna aliquyam erat, sed diam voluptua. At vero
-                        eos et accusam et justo duo dolores et ea rebum. Stet
-                        clita kasd gubergren, no sea takimata sanctus est Lorem
-                        ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-                        consetetur sadipscing elitr, sed diam nonumy eirmod
-                        tempor invidunt ut labore et dolore magna aliquyam erat,
-                        sed diam voluptua. At vero eos et accusam et justo duo
-                        dolores et ea rebum. Stet clita kasd gubergren, no sea
-                        takimata sanctus est Lorem ipsum dolor sit amet.
-                    </p>
+                    <p className={styles.description}>Hallo {res.description}</p>
                     <hr />
                     <h2>Location</h2>
 
                     <div className={styles.map}>
                         <MapWithNoSSR
-                            lat={48.811565221026825}
-                            lng={9.433921753375984}
+                            lat={res.latitude}
+                            lng={res.longitude}
                             size={"25vw"}
                         />
                     </div>
@@ -51,5 +40,18 @@ const Courts = () => {
         </>
     );
 };
+
+export async function getServerSideProps(context) {
+    const prisma = new PrismaClient();
+    const res = await prisma.court.findUnique({
+        where: {
+            id: parseInt(context.query.id),
+        },
+    });
+    console.log(res);
+    console.log("-------");
+
+    return { props: { res } };
+}
 
 export default Courts;
