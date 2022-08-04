@@ -41,7 +41,7 @@ const Courts = ({ court }) => {
                 </div>
 
                 <Container>
-                    <CourtCarousel />
+                    <CourtCarousel images={court.image}/>
                     <h2>Beschreibung:</h2>
                     <p className={styles.description}>
                         Hallo {court.description}

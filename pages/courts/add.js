@@ -25,12 +25,14 @@ const CoutAdd = () => {
         console.log(location);
     }
 
-    const submitContact = async (event) => {
+    const submitCourt = async (event) => {
         event.preventDefault();
 
         if(location) {
             const name = event.target.name.value;
             const desc = event.target.desc.value;
+
+            console.log("Sorry but Images are not supported as of now");
     
             const res = await fetch("/api/courtForm", {
                 body: JSON.stringify({
@@ -63,7 +65,7 @@ const CoutAdd = () => {
                     size={"600px"}
                 />
             </Row>
-            <Form onSubmit={submitContact} className={styles.formContainer}>
+            <Form onSubmit={submitCourt} className={styles.formContainer}>
                 <Form.Group className="mb-3">
                     <Form.Label>Court Name</Form.Label>
                     <Form.Control
@@ -81,6 +83,15 @@ const CoutAdd = () => {
                         name="desc"
                         as="textarea"
                         rows={3}
+                    />
+                </Form.Group>
+
+                <Form.Group>
+                    <Form.Label>Add some images</Form.Label>
+                    <Form.Control
+                        id="pics"
+                        name="pics"
+                        type="file"
                     />
                 </Form.Group>
 
