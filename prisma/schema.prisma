@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Account {
-  id                Int  @id @default(autoincrement())
+  id                Int     @id @default(autoincrement())
   userId            Int
   type              String
   provider          String
@@ -38,8 +38,8 @@ model Session {
 }
 
 model User {
-  id            Int    @id @default(autoincrement())
-  name          String?
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
   email         String?   @unique
   emailVerified DateTime?
   image         String?
@@ -56,11 +56,11 @@ model VerificationToken {
 }
 
 model Court {
-  id Int @id @default(autoincrement())
-  name String
+  id          Int     @id @default(autoincrement())
+  name        String
   description String?
-  image String? 
-  rating Int?
-  latitude Float
-  longitude Float
+  image       String?
+  rating      Int?
+  latitude    Float
+  longitude   Float
 }

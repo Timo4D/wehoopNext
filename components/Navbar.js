@@ -20,7 +20,7 @@ const MyNavbar = () => {
             {session && (
               <>
                 <Nav.Link onClick={signOut}>Logout</Nav.Link>
-                <Nav.Link href="/account">{session.user.name}</Nav.Link>
+                <Nav.Link href={"/user/"+session.user.name}>{session.user.name}</Nav.Link>
               </>
             )}
           </Nav>

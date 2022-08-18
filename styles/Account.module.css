@@ -1,8 +1,10 @@
 .main {
     justify-content: center;
     text-align: center;
+    margin-top: 50px;
 }
 
 .profilePic {
-    border-radius: 50px;
+    width: 500px;
+    border-radius: 50%;
 }
