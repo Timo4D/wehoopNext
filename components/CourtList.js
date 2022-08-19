@@ -22,20 +22,6 @@ const CourtList = () => {
                     <CourtCard />
                 </Col>
             </Row>
-            <Row>
-                <Col>
-                    <CourtCard />
-                </Col>
-                <Col>
-                    <CourtCard />
-                </Col>
-                <Col>
-                    <CourtCard />
-                </Col>
-                <Col>
-                    <CourtCard />
-                </Col>
-            </Row>
         </Container>
     );
 };

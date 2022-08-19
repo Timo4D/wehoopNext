@@ -1,22 +1,43 @@
 /* eslint-disable @next/next/no-img-element */
 import { PrismaClient } from "@prisma/client";
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Collapse } from "react-bootstrap";
 import styles from "../../styles/Account.module.css";
+import CourtList from "../../components/CourtList";
+import { useState } from "react";
 
 const Account = ({ user }) => {
-    const router = useRouter();
+    const [posts, setPosts] = useState(true);
+    const [courts, setCourts] = useState(true);
 
     return (
         <Container className={styles.main}>
             <Row>
-                <h2>{user.name}</h2>
-                <img
-                    className={styles.profilePic}
-                    alt="profile picture"
-                    src={user.image}
-                />
+                <Col fluid>
+                    <img
+                        className={styles.profilePic}
+                        alt="profile picture"
+                        src={user.image}
+                    />
+
+                    <h2>{user.name}</h2>
+                    <p>User Bio</p>
+                </Col>
+
+                <h3 onClick={() => setCourts(!courts)}>Main Courts</h3>
+                <Collapse in={courts}>
+                    <div id="court-colapse">
+                        <CourtList />
+                    </div>
+                </Collapse>
+
+                <h3 onClick={() => setPosts(!posts)}>Posts</h3>
+                <Collapse in={posts}>
+                    <div id="posts-colapse">
+                        <p>Post</p>
+                        <p>Post</p>
+                        <p>Post</p>
+                    </div>
+                </Collapse>
             </Row>
         </Container>
     );
