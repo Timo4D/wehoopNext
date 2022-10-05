@@ -13,7 +13,7 @@
     "@prisma/client": "^4.2.1",
     "bootstrap": "^5.2.0",
     "leaflet": "^1.8.0",
-    "next": "12.2.3",
+    "next": "12.2.4",
     "next-auth": "^4.10.3",
     "react": "18.2.0",
     "react-bootstrap": "^2.4.0",
