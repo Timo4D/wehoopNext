@@ -44,14 +44,14 @@ const Account = ({ user }) => {
 };
 
 export async function getServerSideProps(context) {
-    console.log(context.query.name);
+    console.log(context.query.username);
     const prisma = new PrismaClient();
     const user = await prisma.user.findUnique({
         where: {
-            name: "Timo4D",
+            name: context.query.username,
         },
     });
-    console.log(user);
+    //console.log(user);
     return { props: { user } };
 }
 
