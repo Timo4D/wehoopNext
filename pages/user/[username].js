@@ -1,13 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import { PrismaClient } from "@prisma/client";
-import { Container, Row, Col, Collapse } from "react-bootstrap";
+import { Container, Row, Col, Collapse, Button } from "react-bootstrap";
 import styles from "../../styles/Account.module.css";
 import CourtList from "../../components/CourtList";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 const Account = ({ user }) => {
     const [posts, setPosts] = useState(true);
     const [courts, setCourts] = useState(true);
+    const { data: session } = useSession();
 
     return (
         <Container className={styles.main}>
@@ -18,9 +20,9 @@ const Account = ({ user }) => {
                         alt="profile picture"
                         src={user.image}
                     />
-
                     <h2>{user.name}</h2>
                     <p>User Bio</p>
+                    {session && user.name == session.user.name  && <Button>Edit Profile</Button>}
                 </Col>
 
                 <h3 onClick={() => setCourts(!courts)}>Main Courts</h3>
