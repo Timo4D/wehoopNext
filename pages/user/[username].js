@@ -11,18 +11,39 @@ const Account = ({ user }) => {
     const [courts, setCourts] = useState(true);
     const [edit, setEdit] = useState(false);
     const [editButtonText, setEditButtonText] = useState("Edit Profile");
-    const [bio, setBio] = useState("User Bio");
+    const [bio, setBio] = useState(user.bio);
+    const [newBio, setNewBio] = useState(bio);
     const { data: session } = useSession();
 
     function editProfile(event) {
         setEdit(!edit);
         if (edit) {
             setEditButtonText("Edit Profile");
+            handleSave();
             console.log("save");
         } else {
             setEditButtonText("Save Changes");
         }
         console.log("Edit profile " + edit);
+    }
+
+    async function handleSave() {
+        setBio(newBio);
+        console.log(document.getElementById("bioField").value);
+        const res = await fetch("/api/user/updateBio", {
+            body: JSON.stringify({
+                bio: newBio,
+                name: session.user.name,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+        });
+    }
+
+    function bioChange(event) {
+        setNewBio(event.target.value);
     }
 
     return (
@@ -36,7 +57,16 @@ const Account = ({ user }) => {
                     />
                     <h2>{user.name}</h2>
                     {!edit && <p id="bio">{bio}</p>}
-                    {edit && <textarea className={styles.textArea} defaultValue={bio}></textarea>}
+                    {edit && (
+                        <form>
+                            <textarea
+                                id="bioField"
+                                className={styles.textArea}
+                                value={newBio}
+                                onChange={bioChange}
+                            />
+                        </form>
+                    )}
                     {session && user.name == session.user.name && (
                         <Button onClick={editProfile}>{editButtonText}</Button>
                     )}

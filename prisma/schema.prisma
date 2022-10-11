@@ -46,7 +46,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Post          Post[]
-  Profile       Profile?
+  bio           String?
 }
 
 model VerificationToken {
@@ -74,11 +74,4 @@ model Post {
   content   String?
   author    User     @relation(fields: [authorId], references: [id])
   authorId  Int
-}
-
-model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  userId Int     @unique
-  user   User    @relation(fields: [userId], references: [id])
 }
