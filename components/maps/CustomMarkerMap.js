@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useState, useEffect } from "react";
 import "leaflet/dist/leaflet.css";
@@ -8,11 +9,11 @@ import shadowUrl from "leaflet/dist/images/marker-shadow.png";
 import { useMapEvents } from "react-leaflet/hooks";
 import { LatLng } from "leaflet";
 
-// export function ChangeView({ coords }) {
-//     const map = useMap();
-//     map.setView(coords, 16);
-//     return null;
-// }
+export function ChangeView({ coords }) {
+    const map = useMap();
+    map.setView(coords, 16);
+    return null;
+}
 
 export default function Map(props) {
     const [geoData, setGeoData] = useState({ lat: props.lat, lng: props.lng });
@@ -32,6 +33,18 @@ export default function Map(props) {
             });
         }, [map]);
 
+        useMapEvents({
+            click(e) {
+                setMarker(e.latlng);
+                props.sendData(e.latlng)
+            },
+        });
+
+        return (
+            <React.Fragment>
+                <Marker position={marker}></Marker>
+            </React.Fragment>
+        );
     }
 
     useEffect(() => {

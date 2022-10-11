@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import styles from "../styles/coutds.module.css";
 
-const MapWithNoSSR = dynamic(() => import("../components/maps/CustomMarkerMap"), {
+const MapWithNoSSR = dynamic(() => import("../components/maps/Map"), {
     ssr: false,
 });
 
